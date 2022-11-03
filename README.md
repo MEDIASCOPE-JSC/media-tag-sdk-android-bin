@@ -4,22 +4,7 @@
 
 ## Использование
 
-В файл **settings.gradle** необходимо добавить следующий код:
-```
- repositories {
-        maven {url 'https://developer.huawei.com/repo/'}
-        maven {
-            url = uri("https://maven.pkg.github.com/cifrasoft/media-tag-sdk-android/")
-            credentials {
-                username "login"
-                password "token" ///token должен быть сформирован с возможностью скачивания packages 
-            }
-        }
-    }
-```   
-
-
-При использовании Github packages в файл **build.gradle(app)** необходимо добавить зависимости:
+При использовании mavenCentral в файл **build.gradle(app)** необходимо добавить зависимости:
 ```
     dependencies {
         implementation 'net.mediascope:mediatagsdk:1.0.5*
