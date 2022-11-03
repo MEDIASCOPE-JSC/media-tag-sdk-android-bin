@@ -22,7 +22,7 @@
 При использовании Github packages в файл **build.gradle(app)** необходимо добавить зависимости:
 ```
     dependencies {
-        implementation 'com.cifrasoft:mediatagsdk:1.0.*'
+        implementation 'net.mediascope:mediatagsdk:1.0.5*
     }
 ```
 При использовании aar-файла необходимо добавить зависимости:
