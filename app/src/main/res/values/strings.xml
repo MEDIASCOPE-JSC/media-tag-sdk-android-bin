@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Event SDK Demo</string>
+
+    <string name="undefined">undefined</string>
+    <string name="live_broadcast">live вещание</string>
+    <string name="vod">VOD</string>
+    <string name="catch_up">Catch-up</string>
+    <string name="text_article">Статья</string>
+    <string name="soc_network">пост в соцсети</string>
+    <string name="live_audio">live аудио</string>
+    <string name="audio">аудио по запросу</string>
+
+    <string name="stop">stop</string>
+    <string name="start">start</string>
+    <string name="start_heartbeat">Start HeartBeat</string>
+    <string name="stop_heartbeat">Stop HeartBeat</string>
+    <string name="pause">pause</string>
+
+    <string name="idc">idc</string>
+    <string name="idlc">idlc</string>
+    <string name="urlc">urlc</string>
+    <string name="ver">ver</string>
+    <string name="media">media</string>
+    <string name="contact_type">contact_type</string>
+    <string name="view">view</string>
+    <string name="fts">fts</string>
+    <string name="event_send">Событие отправлено</string>
+    <string name="event_not_send">Заполните необходимые поля</string>
+    <string name="heartbeat">heartbeat</string>
+    <string name="send_event">send event</string>
+
+
+</resources>
