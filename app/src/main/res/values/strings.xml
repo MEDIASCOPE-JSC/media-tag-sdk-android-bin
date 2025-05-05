@@ -26,7 +26,8 @@
     <string name="fts">fts</string>
     <string name="event_send">Событие отправлено</string>
     <string name="event_not_send">Заполните необходимые поля</string>
-    <string name="heartbeat">heartbeat</string>
+    <string name="heartbeat">hb</string>
+
     <string name="send_event">send event</string>
 
 

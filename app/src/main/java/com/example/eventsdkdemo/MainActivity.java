@@ -1,17 +1,23 @@
 package com.example.eventsdkdemo;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.eventsdkdemo.databinding.ActivityMainBinding;
 import com.google.android.material.snackbar.Snackbar;
 
 import net.mediascope.mediatagsdk.Mediatag;
 import net.mediascope.mediatagsdk.MediatagEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
@@ -20,9 +26,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        EdgeToEdge.enable(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         //активация сервиса
         String[] contactTypes = {getString(R.string.undefined), getString(R.string.live_broadcast),
@@ -36,19 +49,17 @@ public class MainActivity extends AppCompatActivity {
         binding.contactType.setText(adapter.getItem(selectedContactTypeIndex), false);
         binding.btnStart.setChecked(true);
 
-
         binding.contactType.setOnItemClickListener((adapterView, view1, i, l) -> selectedContactTypeIndex = i);
 
         binding.btnSendEvent.setOnClickListener(view1 -> {
-            Log.i(TAG, binding.toggleGroupType.getCheckedButtonId() + " " + binding.contactType.getListSelection());
-            View parentLayout = findViewById(android.R.id.content);
+             View parentLayout = findViewById(android.R.id.content);
 
             int selectedViewTypeIndex = 0;  //STOP,
-            if(binding.btnStart.isChecked())
+            if (binding.btnStart.isChecked())
                 selectedViewTypeIndex = 1;  //START,
-            else if(binding.btnPause.isChecked())
+            else if (binding.btnPause.isChecked())
                 selectedViewTypeIndex = 3;  //PAUSE;
-            else if(binding.btnHeartbeat.isChecked())
+            else if (binding.btnHeartbeat.isChecked())
                 selectedViewTypeIndex = 2;   //HEARTBEAT,
 
             //инициализация события с одним обязательным параметром
@@ -72,9 +83,15 @@ public class MainActivity extends AppCompatActivity {
             if (binding.tvIdlc.getEditableText().length() > 0)
                 event.setIdlc(binding.tvIdlc.getEditableText().toString());
 
-            event.setView(MediatagEvent.ViewTypes.values()[selectedViewTypeIndex]);
+            Map<String, String> map = new HashMap<>();
+            for(int i = 0; i < 35; i++){
+                map.put("key_"+ i,"value_" + i);
+            }
 
+            event.setView(MediatagEvent.ViewTypes.values()[selectedViewTypeIndex])
+                 .setExtMapAttrs(map);
             //добавляем событие в очередь для отправки
+
             Mediatag.instance().addEvent(event);
 
             Snackbar.make(parentLayout, R.string.event_send, Snackbar.LENGTH_LONG)
@@ -85,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         Mediatag.release();
+        super.onDestroy();
     }
 }
